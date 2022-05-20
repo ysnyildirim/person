@@ -81,8 +81,8 @@ public class PersonController {
             person.setFirstName(dto.getFirstName());
             person.setLastName(dto.getLastName());
             person.setBirthDate(dto.getBirthDate());
-            person.setUserId(dto.getUserId());
             person.setIdentificationNumber(dto.getIdentificationNumber());
+            person.setContactId(dto.getContactId());
             person.setCreatedUserId(authenticatedPersonId);
             person.setCreatedTime(new Date());
             person = personService.save(person);
@@ -104,7 +104,7 @@ public class PersonController {
             person.setFirstName(dto.getFirstName());
             person.setLastName(dto.getLastName());
             person.setBirthDate(dto.getBirthDate());
-            person.setUserId(dto.getUserId());
+            person.setContactId(dto.getContactId());
             person.setIdentificationNumber(dto.getIdentificationNumber());
             person = personService.save(person);
             return ResponseEntity.ok().build();

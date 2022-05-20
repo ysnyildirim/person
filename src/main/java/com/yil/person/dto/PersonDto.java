@@ -19,6 +19,5 @@ public class PersonDto {
     private String firstName;
     private String lastName;
     private Date birthDate;
-    private Long identificationNumber;
-    private Long userId;
+    private Long identificationNumber; 
 }

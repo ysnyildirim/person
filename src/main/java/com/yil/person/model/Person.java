@@ -17,10 +17,10 @@ import java.util.Date;
 @Table(name = "Person")
 public class Person extends AbstractEntity {
     @Id
-    @SequenceGenerator(name = "User_Sequence_Generator",
-            sequenceName = "Seq_User",
+    @SequenceGenerator(name = "Person_Sequence_Generator",
+            sequenceName = "Seq_Person",
             allocationSize = 1)
-    @GeneratedValue(generator = "User_Sequence_Generator")
+    @GeneratedValue(generator = "Person_Sequence_Generator")
     @Column(name = "Id")
     private Long id;
     @Column(name = "FirstName", nullable = false, length = 1000)

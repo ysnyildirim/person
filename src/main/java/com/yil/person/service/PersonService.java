@@ -38,7 +38,6 @@ public class PersonService {
             throw new NullPointerException("Person is null");
         PersonDto dto = new PersonDto();
         dto.setId(person.getId());
-        dto.setUserId(person.getUserId());
         dto.setBirthDate(person.getBirthDate());
         dto.setFirstName(person.getFirstName());
         dto.setLastName(person.getLastName());
