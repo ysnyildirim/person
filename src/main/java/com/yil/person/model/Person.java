@@ -32,6 +32,6 @@ public class Person extends AbstractEntity {
     private Date birthDate;
     @Column(name = "IdentificationNumber")
     private Long identificationNumber;
-    @Column(name = "UserId")
-    private Long userId;
+    @Column(name = "ContactId")
+    private Long contactId;
 }
