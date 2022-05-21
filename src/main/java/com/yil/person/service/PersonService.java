@@ -19,6 +19,18 @@ public class PersonService {
         this.personRepository = personRepository;
     }
 
+    public static PersonDto toDto(Person person) throws NullPointerException {
+        if (person == null)
+            throw new NullPointerException("Person is null");
+        PersonDto dto = new PersonDto();
+        dto.setId(person.getId());
+        dto.setBirthDate(person.getBirthDate());
+        dto.setFirstName(person.getFirstName());
+        dto.setLastName(person.getLastName());
+        dto.setIdentificationNumber(person.getIdentificationNumber());
+        return dto;
+    }
+
     public Person findById(Long id) throws EntityNotFoundException {
         return personRepository.findById(id).orElseThrow(() -> {
             return new EntityNotFoundException();
@@ -31,17 +43,5 @@ public class PersonService {
 
     public Page<Person> findAllByDeletedTimeIsNull(Pageable pageable) {
         return personRepository.findAllByDeletedTimeIsNull(pageable);
-    }
-
-    public static PersonDto toDto(Person person) throws NullPointerException {
-        if (person == null)
-            throw new NullPointerException("Person is null");
-        PersonDto dto = new PersonDto();
-        dto.setId(person.getId());
-        dto.setBirthDate(person.getBirthDate());
-        dto.setFirstName(person.getFirstName());
-        dto.setLastName(person.getLastName());
-        dto.setIdentificationNumber(person.getIdentificationNumber());
-        return dto;
     }
 }

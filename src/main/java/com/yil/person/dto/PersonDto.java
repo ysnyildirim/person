@@ -5,9 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import java.util.Date;
 
 @Data
@@ -19,5 +16,5 @@ public class PersonDto {
     private String firstName;
     private String lastName;
     private Date birthDate;
-    private Long identificationNumber; 
+    private Long identificationNumber;
 }
