@@ -14,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
@@ -99,7 +100,13 @@ public class PersonController {
                                   @PathVariable Long id,
                                   @Valid @RequestBody CreatePersonDto dto) {
         try {
-            Person person = new Person();
+
+            Person person = null;
+            try {
+                person = personService.findById(id);
+            } catch (EntityNotFoundException entityNotFoundException) {
+                return ResponseEntity.notFound().build();
+            }
             person.setFirstName(dto.getFirstName());
             person.setLastName(dto.getLastName());
             person.setBirthDate(dto.getBirthDate());
