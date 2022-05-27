@@ -1,6 +1,6 @@
 package com.yil.person.controller;
 
-import com.yil.person.base.ApiHeaders;
+import com.yil.person.base.ApiConstant;
 import com.yil.person.base.PageDto;
 import com.yil.person.dto.CreatePersonDto;
 import com.yil.person.dto.PersonDto;
@@ -34,8 +34,8 @@ public class PersonController {
 
     @GetMapping
     public ResponseEntity<PageDto<PersonDto>> findAll(
-            @RequestParam(required = false, defaultValue = "0") int page,
-            @RequestParam(required = false, defaultValue = "1000") int size) {
+            @RequestParam(required = false, defaultValue = ApiConstant.PAGE) int page,
+            @RequestParam(required = false, defaultValue = ApiConstant.PAGE_SIZE) int size) {
         try {
             if (page < 0)
                 page = 0;
@@ -74,7 +74,7 @@ public class PersonController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity create(@RequestHeader(value = ApiHeaders.AUTHENTICATED_USER_ID) Long authenticatedPersonId,
+    public ResponseEntity create(@RequestHeader(value = ApiConstant.AUTHENTICATED_USER_ID) Long authenticatedPersonId,
                                  @Valid @RequestBody CreatePersonDto dto) {
         try {
             Person person = new Person();
@@ -96,7 +96,7 @@ public class PersonController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity replace(@RequestHeader(value = ApiHeaders.AUTHENTICATED_USER_ID) Long authenticatedPersonId,
+    public ResponseEntity replace(@RequestHeader(value = ApiConstant.AUTHENTICATED_USER_ID) Long authenticatedPersonId,
                                   @PathVariable Long id,
                                   @Valid @RequestBody CreatePersonDto dto) {
         try {
@@ -122,7 +122,7 @@ public class PersonController {
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<String> delete(@RequestHeader(value = ApiHeaders.AUTHENTICATED_USER_ID) Long authenticatedPersonId,
+    public ResponseEntity<String> delete(@RequestHeader(value = ApiConstant.AUTHENTICATED_USER_ID) Long authenticatedPersonId,
                                          @PathVariable Long id) {
         try {
             Person person;
