@@ -6,6 +6,7 @@ import com.yil.person.dto.CreatePersonDto;
 import com.yil.person.dto.PersonDto;
 import com.yil.person.model.Person;
 import com.yil.person.service.PersonService;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +21,13 @@ import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.util.Date;
 
+@RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "v1/persons")
+@RequestMapping(value = "/api/person/v1/persons")
 public class PersonController {
 
     private final Log logger = LogFactory.getLog(this.getClass());
     private final PersonService personService;
-
-    @Autowired
-    public PersonController(PersonService personService) {
-        this.personService = personService;
-    }
 
     @GetMapping
     public ResponseEntity<PageDto<PersonDto>> findAll(
