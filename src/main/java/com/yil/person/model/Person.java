@@ -15,24 +15,24 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Person")
+@Table(name = "PERSON")
 public class Person extends AbstractEntity {
     @Id
-    @SequenceGenerator(name = "Person_Sequence_Generator",
-            sequenceName = "Seq_Person",
+    @SequenceGenerator(name = "PERSON_SEQUENCE_GENERATOR",
+            sequenceName = "SEQ_PERSON_ID",
             allocationSize = 1)
-    @GeneratedValue(generator = "Person_Sequence_Generator")
-    @Column(name = "Id")
+    @GeneratedValue(generator = "PERSON_SEQUENCE_GENERATOR")
+    @Column(name = "ID")
     private Long id;
-    @Column(name = "FirstName", nullable = false, length = 1000)
+    @Column(name = "FIRST_NAME", nullable = false, length = 1000)
     private String firstName;
-    @Column(name = "LastName", nullable = false, length = 1000)
+    @Column(name = "LAST_NAME", nullable = false, length = 1000)
     private String lastName;
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "BirthDate")
+    @Column(name = "BIRTH_DATE")
     private Date birthDate;
-    @Column(name = "IdentificationNumber")
+    @Column(name = "IDENTIFICATION_NUMBER")
     private Long identificationNumber;
-    @Column(name = "ContactId")
+    @Column(name = "CONTACT_ID")
     private Long contactId;
 }
