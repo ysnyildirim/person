@@ -1,6 +1,6 @@
 package com.yil.person.model;
 
-import com.yil.person.base.AbstractEntity;
+import com.yil.person.base.IEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,8 +15,12 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "PERSON")
-public class Person extends AbstractEntity {
+@Table(schema = "PRS",
+        name = "PERSON",
+        indexes = {
+                @Index(name = "IDX_PERSON_IDENTIFICATION_NUMBER", columnList = "IDENTIFICATION_NUMBER")
+        })
+public class Person implements IEntity {
     @Id
     @SequenceGenerator(name = "PERSON_SEQUENCE_GENERATOR",
             sequenceName = "SEQ_PERSON_ID",
@@ -35,4 +39,9 @@ public class Person extends AbstractEntity {
     private Long identificationNumber;
     @Column(name = "CONTACT_ID")
     private Long contactId;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "CREATED_TIME")
+    private Date createdTime;
+    @Column(name = "CREATED_USER_ID")
+    private Long createdUserId;
 }
