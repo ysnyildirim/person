@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -32,6 +33,9 @@ public class Person implements IEntity {
     private String firstName;
     @Column(name = "LAST_NAME", nullable = false, length = 1000)
     private String lastName;
+    @ColumnDefault(value = "0")
+    @Column(name = "GENDER_ID", nullable = false)
+    private Integer genderId;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "BIRTH_DATE")
     private Date birthDate;
