@@ -41,7 +41,11 @@ public class PersonService {
         return personRepository.save(person);
     }
 
-    public Page<Person> findAllByDeletedTimeIsNull(Pageable pageable) {
-        return personRepository.findAllByDeletedTimeIsNull(pageable);
+    public Page<Person> findAll(Pageable pageable) {
+        return personRepository.findAll(pageable);
+    }
+
+    public void delete(Person person) {
+        personRepository.delete(person);
     }
 }

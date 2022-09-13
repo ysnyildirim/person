@@ -24,6 +24,7 @@ import java.util.Date;
 public class Person implements IEntity {
     @Id
     @SequenceGenerator(name = "PERSON_SEQUENCE_GENERATOR",
+            schema = "PRS",
             sequenceName = "SEQ_PERSON_ID",
             allocationSize = 1)
     @GeneratedValue(generator = "PERSON_SEQUENCE_GENERATOR")

@@ -9,13 +9,14 @@ import javax.persistence.*;
 @EqualsAndHashCode
 @Entity
 @Data
-@Table(name = "GENDER_TYPE")
+@Table(name = "GENDER_TYPE", schema = "PRS")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class GenderType implements IEntity {
     @Id
     @SequenceGenerator(name = "GENDER_TYPE_SEQUENCE_GENERATOR",
+            schema = "PRS",
             sequenceName = "SEQ_GENDER_TYPE_ID",
             allocationSize = 1)
     @GeneratedValue(generator = "GENDER_TYPE_SEQUENCE_GENERATOR")

@@ -9,7 +9,6 @@ import com.yil.person.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -39,7 +38,7 @@ public class PersonController {
             if (size <= 0 || size > 1000)
                 size = 1000;
             Pageable pageable = PageRequest.of(page, size);
-            Page<Person> personPage = personService.findAllByDeletedTimeIsNull(pageable);
+            Page<Person> personPage = personService.findAll(pageable);
             PageDto<PersonDto> pageDto = PageDto.toDto(personPage, PersonService::toDto);
             return ResponseEntity.ok(pageDto);
         } catch (Exception exception) {
@@ -130,9 +129,7 @@ public class PersonController {
             } catch (Exception e) {
                 throw e;
             }
-            person.setDeletedUserId(authenticatedPersonId);
-            person.setDeletedTime(new Date());
-            personService.save(person);
+            personService.delete(person);
             return ResponseEntity.ok("Person deleted.");
         } catch (Exception exception) {
             logger.error(null, exception);
