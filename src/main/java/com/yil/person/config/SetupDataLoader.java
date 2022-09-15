@@ -1,7 +1,7 @@
 package com.yil.person.config;
 
 import com.yil.person.model.GenderType;
-import com.yil.person.repository.GenderDao;
+import com.yil.person.repository.GenderTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextStartedEvent;
@@ -14,7 +14,8 @@ public class SetupDataLoader implements ApplicationListener<ContextStartedEvent>
 
 
     @Autowired
-    private GenderDao genderDao;
+    private GenderTypeRepository genderDao;
+
 
     @Override
     public void onApplicationEvent(ContextStartedEvent event) {
@@ -24,6 +25,7 @@ public class SetupDataLoader implements ApplicationListener<ContextStartedEvent>
 
         initGenderTypes();
     }
+
 
     private void initGenderTypes() {
         genderDao.save(GenderType.builder().id(1).name("Erkek").build());

@@ -4,10 +4,15 @@
 
 package com.yil.person.base;
 
+
 import lombok.Getter;
 
 @Getter
 public enum ErrorCode {
+    PersonEducationNotFound(3000003, "Kişinin Eğitim bilgisi bulunamadı!"),
+    EducationNotFound(3000002, "Eğitim durumu bulunamadı!"),
+    PersonNotFound(3000001, "Kişi bulunamadı!"),
+    GenderNotFound(3000000, "Cinsiyet bulunamadı!"),
     ;
 
     private final int code;

@@ -24,4 +24,6 @@ public class CreatePersonDto {
     private Date birthDate;
     private Long identificationNumber;
     private Long contactId;
+    private Integer genderId;
+    private Integer jobId;
 }

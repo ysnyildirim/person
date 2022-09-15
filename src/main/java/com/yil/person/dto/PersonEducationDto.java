@@ -7,17 +7,15 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PersonDto {
+public class PersonEducationDto {
     private Long id;
-    private String firstName;
-    private String lastName;
-    private Date birthDate;
-    private Long identificationNumber;
-    private int genderTypeId;
-    private Long contactId;
-    private Integer jobId;
+    private Long personId;
+    private Integer educationId;
+    private Date startDate;
+    private Date finishDate;
 }

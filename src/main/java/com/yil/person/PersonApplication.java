@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Info;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
 @ComponentScan(basePackages = {"com.yil"})
@@ -12,7 +13,8 @@ import org.springframework.context.annotation.ComponentScan;
 public class PersonApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(PersonApplication.class, args);
+        ConfigurableApplicationContext context = SpringApplication.run(PersonApplication.class, args);
+        context.start();
     }
 
 }

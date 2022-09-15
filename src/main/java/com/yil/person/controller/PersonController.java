@@ -4,6 +4,9 @@ import com.yil.person.base.ApiConstant;
 import com.yil.person.base.PageDto;
 import com.yil.person.dto.CreatePersonDto;
 import com.yil.person.dto.PersonDto;
+import com.yil.person.exception.EducationNotFoundException;
+import com.yil.person.exception.GenderNotFoundException;
+import com.yil.person.exception.PersonNotFoundException;
 import com.yil.person.model.Person;
 import com.yil.person.service.PersonService;
 import lombok.RequiredArgsConstructor;
@@ -18,11 +21,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
-import java.util.Date;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value = "/api/person/v1/persons")
+@RequestMapping(value = "/api/prs/v1/persons")
 public class PersonController {
 
     private final Log logger = LogFactory.getLog(this.getClass());
@@ -70,56 +72,28 @@ public class PersonController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity create(@RequestHeader(value = ApiConstant.AUTHENTICATED_USER_ID) Long authenticatedPersonId,
-                                 @Valid @RequestBody CreatePersonDto dto) {
-        try {
-            Person person = new Person();
-            person.setFirstName(dto.getFirstName());
-            person.setLastName(dto.getLastName());
-            person.setBirthDate(dto.getBirthDate());
-            person.setIdentificationNumber(dto.getIdentificationNumber());
-            person.setContactId(dto.getContactId());
-            person.setCreatedUserId(authenticatedPersonId);
-            person.setCreatedTime(new Date());
-            person = personService.save(person);
-            return ResponseEntity.created(null).build();
-        } catch (Exception exception) {
-            logger.error(null, exception);
-            return ResponseEntity.internalServerError().build();
-        }
+    public ResponseEntity<String> create(@RequestHeader(value = ApiConstant.AUTHENTICATED_USER_ID) Long authenticatedUserId,
+                                         @Valid @RequestBody CreatePersonDto dto) throws GenderNotFoundException, EducationNotFoundException {
+        personService.save(dto, authenticatedUserId);
+        return ResponseEntity.created(null).body("Kişi eklendi");
     }
 
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity replace(@RequestHeader(value = ApiConstant.AUTHENTICATED_USER_ID) Long authenticatedPersonId,
+    public ResponseEntity replace(@RequestHeader(value = ApiConstant.AUTHENTICATED_USER_ID) Long authenticatedUserId,
                                   @PathVariable Long id,
-                                  @Valid @RequestBody CreatePersonDto dto) {
-        try {
+                                  @Valid @RequestBody CreatePersonDto dto) throws PersonNotFoundException, GenderNotFoundException {
+        personService.replace(id, dto, authenticatedUserId);
+        return ResponseEntity.ok().build();
 
-            Person person = null;
-            try {
-                person = personService.findById(id);
-            } catch (EntityNotFoundException entityNotFoundException) {
-                return ResponseEntity.notFound().build();
-            }
-            person.setFirstName(dto.getFirstName());
-            person.setLastName(dto.getLastName());
-            person.setBirthDate(dto.getBirthDate());
-            person.setContactId(dto.getContactId());
-            person.setIdentificationNumber(dto.getIdentificationNumber());
-            person = personService.save(person);
-            return ResponseEntity.ok().build();
-        } catch (Exception exception) {
-            logger.error(null, exception);
-            return ResponseEntity.internalServerError().build();
-        }
     }
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> delete(@RequestHeader(value = ApiConstant.AUTHENTICATED_USER_ID) Long authenticatedPersonId,
                                          @PathVariable Long id) {
+
         try {
             Person person;
             try {
@@ -131,6 +105,7 @@ public class PersonController {
             }
             personService.delete(person);
             return ResponseEntity.ok("Person deleted.");
+
         } catch (Exception exception) {
             logger.error(null, exception);
             return ResponseEntity.internalServerError().build();
