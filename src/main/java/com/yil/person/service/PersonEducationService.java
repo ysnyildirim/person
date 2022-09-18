@@ -8,8 +8,9 @@ import com.yil.person.model.PersonEducation;
 import com.yil.person.repository.PersonEducationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -26,10 +27,9 @@ public class PersonEducationService {
                 .build();
     }
 
-    public PersonEducation findById(Long id) throws PersonEducationNotFoundException {
-        return personEducationRepository.findById(id).orElseThrow(PersonEducationNotFoundException::new);
-
-
+    public PersonEducation save(PersonEducationRequest dto, Long personId, long userId) throws PersonNotFoundException {
+        PersonEducation personEducation = new PersonEducation();
+        return getPersonEducation(dto, personId, userId, personEducation);
     }
 
     private PersonEducation getPersonEducation(PersonEducationRequest dto, Long personId, long userId, PersonEducation personEducation) throws PersonNotFoundException {
@@ -42,22 +42,22 @@ public class PersonEducationService {
         return personEducationRepository.save(personEducation);
     }
 
-
-    public PersonEducation save(PersonEducationRequest dto, Long personId, long userId) throws PersonNotFoundException {
-        PersonEducation personEducation = new PersonEducation();
-        return getPersonEducation(dto, personId, userId, personEducation);
+    public List<PersonEducation> findAllByPersonId(long personId) {
+        return personEducationRepository.findAllByPersonId(personId);
     }
 
-    public Page<PersonEducation> findAllByPersonId(Pageable pageable, long personId) {
-        return personEducationRepository.findAllByPersonId(pageable, personId);
-    }
-
-    public void delete(PersonEducation personEducation) {
-        personEducationRepository.delete(personEducation);
+    public void deleteById(long id) {
+        personEducationRepository.deleteById(id);
     }
 
     public PersonEducation replace(Long id, Long personId, PersonEducationRequest dto, Long authenticatedUserId) throws PersonEducationNotFoundException, PersonNotFoundException {
         PersonEducation personEducation = findById(id);
         return getPersonEducation(dto, personId, authenticatedUserId, personEducation);
+    }
+
+    public PersonEducation findById(Long id) throws PersonEducationNotFoundException {
+        return personEducationRepository.findById(id).orElseThrow(PersonEducationNotFoundException::new);
+
+
     }
 }

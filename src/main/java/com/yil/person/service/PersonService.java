@@ -38,18 +38,8 @@ public class PersonService {
         return personRepository.existsById(id);
     }
 
-    public Person findById(Long id) throws PersonNotFoundException {
-        return personRepository.findById(id).orElseThrow(PersonNotFoundException::new);
-
-    }
-
     public Person save(CreatePersonDto dto, long userId) throws GenderNotFoundException, EducationNotFoundException {
         Person person = new Person();
-        return getPerson(dto, userId, person);
-    }
-
-    public Person replace(long id, CreatePersonDto dto, long userId) throws PersonNotFoundException, GenderNotFoundException {
-        Person person = findById(id);
         return getPerson(dto, userId, person);
     }
 
@@ -68,6 +58,15 @@ public class PersonService {
         return personRepository.save(person);
     }
 
+    public Person replace(long id, CreatePersonDto dto, long userId) throws PersonNotFoundException, GenderNotFoundException {
+        Person person = findById(id);
+        return getPerson(dto, userId, person);
+    }
+
+    public Person findById(Long id) throws PersonNotFoundException {
+        return personRepository.findById(id).orElseThrow(PersonNotFoundException::new);
+
+    }
 
     public Page<Person> findAll(Pageable pageable) {
         return personRepository.findAll(pageable);
@@ -75,5 +74,9 @@ public class PersonService {
 
     public void delete(Person person) {
         personRepository.delete(person);
+    }
+
+    public void deleteById(long id) {
+        personRepository.deleteById(id);
     }
 }

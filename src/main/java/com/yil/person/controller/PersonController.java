@@ -1,6 +1,7 @@
 package com.yil.person.controller;
 
 import com.yil.person.base.ApiConstant;
+import com.yil.person.base.Mapper;
 import com.yil.person.base.PageDto;
 import com.yil.person.dto.CreatePersonDto;
 import com.yil.person.dto.PersonDto;
@@ -10,16 +11,12 @@ import com.yil.person.exception.PersonNotFoundException;
 import com.yil.person.model.Person;
 import com.yil.person.service.PersonService;
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 
 @RequiredArgsConstructor
@@ -27,46 +24,25 @@ import javax.validation.Valid;
 @RequestMapping(value = "/api/prs/v1/persons")
 public class PersonController {
 
-    private final Log logger = LogFactory.getLog(this.getClass());
     private final PersonService personService;
+    private final Mapper<Person, PersonDto> mapper = new Mapper<>(PersonService::toDto);
 
     @GetMapping
     public ResponseEntity<PageDto<PersonDto>> findAll(
             @RequestParam(required = false, defaultValue = ApiConstant.PAGE) int page,
             @RequestParam(required = false, defaultValue = ApiConstant.PAGE_SIZE) int size) {
-        try {
-            if (page < 0)
-                page = 0;
-            if (size <= 0 || size > 1000)
-                size = 1000;
-            Pageable pageable = PageRequest.of(page, size);
-            Page<Person> personPage = personService.findAll(pageable);
-            PageDto<PersonDto> pageDto = PageDto.toDto(personPage, PersonService::toDto);
-            return ResponseEntity.ok(pageDto);
-        } catch (Exception exception) {
-            logger.error(null, exception);
-            return ResponseEntity.internalServerError().build();
-        }
+        if (page < 0)
+            page = 0;
+        if (size <= 0 || size > 1000)
+            size = 1000;
+        Pageable pageable = PageRequest.of(page, size);
+        return ResponseEntity.ok(mapper.map(personService.findAll(pageable)));
     }
 
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<PersonDto> findById(@PathVariable Long id) {
-        try {
-            Person person;
-            try {
-                person = personService.findById(id);
-            } catch (EntityNotFoundException entityNotFoundException) {
-                return ResponseEntity.notFound().build();
-            } catch (Exception e) {
-                throw e;
-            }
-            PersonDto dto = PersonService.toDto(person);
-            return ResponseEntity.ok(dto);
-        } catch (Exception exception) {
-            logger.error(null, exception);
-            return ResponseEntity.internalServerError().build();
-        }
+    public ResponseEntity<PersonDto> findById(@PathVariable Long id) throws PersonNotFoundException {
+        return ResponseEntity.ok(mapper.map(personService.findById(id)));
     }
 
 
@@ -92,25 +68,8 @@ public class PersonController {
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> delete(@RequestHeader(value = ApiConstant.AUTHENTICATED_USER_ID) Long authenticatedPersonId,
-                                         @PathVariable Long id) {
-
-        try {
-            Person person;
-            try {
-                person = personService.findById(id);
-            } catch (EntityNotFoundException entityNotFoundException) {
-                return ResponseEntity.notFound().build();
-            } catch (Exception e) {
-                throw e;
-            }
-            personService.delete(person);
-            return ResponseEntity.ok("Person deleted.");
-
-        } catch (Exception exception) {
-            logger.error(null, exception);
-            return ResponseEntity.internalServerError().build();
-        }
+                                         @PathVariable Long id) throws PersonNotFoundException {
+        personService.deleteById(id);
+        return ResponseEntity.ok("Person deleted.");
     }
-
-
 }
