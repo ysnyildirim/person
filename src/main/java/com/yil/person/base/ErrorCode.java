@@ -9,6 +9,7 @@ import lombok.Getter;
 
 @Getter
 public enum ErrorCode {
+    PersonJobNotFound(3000004, "Kişinin Meslek bilgisi bulunamadı!"),
     PersonEducationNotFound(3000003, "Kişinin Eğitim bilgisi bulunamadı!"),
     EducationNotFound(3000002, "Eğitim durumu bulunamadı!"),
     PersonNotFound(3000001, "Kişi bulunamadı!"),

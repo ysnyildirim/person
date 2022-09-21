@@ -30,7 +30,6 @@ public class PersonService {
         dto.setFirstName(person.getFirstName());
         dto.setLastName(person.getLastName());
         dto.setIdentificationNumber(person.getIdentificationNumber());
-        dto.setJobId(person.getJobId());
         return dto;
     }
 
@@ -54,7 +53,6 @@ public class PersonService {
         person.setCreatedUserId(userId);
         person.setCreatedTime(new Date());
         person.setGenderId(dto.getGenderId());
-        person.setJobId(dto.getJobId());
         return personRepository.save(person);
     }
 

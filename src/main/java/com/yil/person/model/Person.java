@@ -49,7 +49,5 @@ public class Person implements IEntity {
     private Date createdTime;
     @Column(name = "CREATED_USER_ID")
     private Long createdUserId;
-    @Column(name = "JOB_ID")
-    private Integer jobId;
 
 }
