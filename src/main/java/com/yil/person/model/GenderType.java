@@ -17,8 +17,7 @@ public class GenderType implements IEntity {
     @Id
     @SequenceGenerator(name = "GENDER_TYPE_SEQUENCE_GENERATOR",
             schema = "PRS",
-            sequenceName = "SEQ_GENDER_TYPE_ID",
-            allocationSize = 1)
+            sequenceName = "SEQ_GENDER_TYPE_ID")
     @GeneratedValue(generator = "GENDER_TYPE_SEQUENCE_GENERATOR")
     @Column(name = "ID")
     private Integer id;
