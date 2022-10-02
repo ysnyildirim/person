@@ -51,7 +51,7 @@ public class PersonController {
     public ResponseEntity<String> create(@RequestHeader(value = ApiConstant.AUTHENTICATED_USER_ID) Long authenticatedUserId,
                                          @Valid @RequestBody CreatePersonDto dto) throws GenderNotFoundException, EducationNotFoundException {
         personService.save(dto, authenticatedUserId);
-        return ResponseEntity.created(null).body("Kişi eklendi");
+        return ResponseEntity.status(HttpStatus.CREATED).body("Kişi eklendi");
     }
 
 

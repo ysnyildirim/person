@@ -46,7 +46,7 @@ public class PersonEducationController {
             @RequestHeader(value = ApiConstant.AUTHENTICATED_USER_ID) Long authenticatedUserId,
             @Valid @RequestBody PersonEducationRequest dto) throws PersonNotFoundException {
         personEducationService.save(dto, personId, authenticatedUserId);
-        return ResponseEntity.created(null).body("Kişiye ait eğitim bilgisi eklendi");
+        return ResponseEntity.status(HttpStatus.CREATED).body("Kişiye ait eğitim bilgisi eklendi");
     }
 
 

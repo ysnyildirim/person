@@ -32,7 +32,7 @@ public class PersonJobController {
                                @PathVariable(value = "personId") Long personId,
                                @Valid @RequestBody PersonJobRequest request) throws PersonNotFoundException {
         personJobService.save(request, personId, authenticatedUserId);
-        return ResponseEntity.created(null).body("Added");
+        return ResponseEntity.status(HttpStatus.CREATED).body("Added");
     }
 
 }
