@@ -11,7 +11,6 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class PersonJobDto implements Serializable {
     private Long Id;
     private Long personId;

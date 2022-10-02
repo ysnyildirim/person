@@ -1,6 +1,5 @@
 package com.yil.person.model;
 
-
 import com.yil.person.base.IEntity;
 import lombok.*;
 
@@ -24,4 +23,3 @@ public class GenderType implements IEntity {
     @Column(name = "NAME", nullable = false, length = 100)
     private String name;
 }
-

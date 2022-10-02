@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 @RequiredArgsConstructor
 @Service
 public class PersonJobService {
@@ -38,8 +37,4 @@ public class PersonJobService {
     public List<PersonJob> findAllByPersonId(Long personId) {
         return personJobRepository.findAllByPersonId(personId);
     }
-
-
 }
-
-

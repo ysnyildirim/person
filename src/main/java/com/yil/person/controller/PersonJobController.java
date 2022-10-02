@@ -1,6 +1,5 @@
 package com.yil.person.controller;
 
-
 import com.yil.person.base.ApiConstant;
 import com.yil.person.base.Mapper;
 import com.yil.person.dto.PersonJobDto;
@@ -34,5 +33,4 @@ public class PersonJobController {
         personJobService.save(request, personId, authenticatedUserId);
         return ResponseEntity.status(HttpStatus.CREATED).body("Added");
     }
-
 }

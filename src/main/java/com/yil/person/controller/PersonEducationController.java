@@ -20,7 +20,6 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/prs/v1/persons/{personId}/educations")
 public class PersonEducationController {
-
     private final PersonEducationService personEducationService;
     private final Mapper<PersonEducation, PersonEducationDto> mapper = new Mapper<>(PersonEducationService::toDto);
 
@@ -30,14 +29,12 @@ public class PersonEducationController {
         return ResponseEntity.ok(mapper.map(personEducationService.findAllByPersonId(personId)));
     }
 
-
     @GetMapping(value = "/{id}")
     public ResponseEntity<PersonEducationDto> findById(
             @RequestHeader(value = "personId") Long personId,
             @PathVariable Long id) throws PersonEducationNotFoundException {
         return ResponseEntity.ok(mapper.map(personEducationService.findById(id)));
     }
-
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -49,7 +46,6 @@ public class PersonEducationController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Kişiye ait eğitim bilgisi eklendi");
     }
 
-
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity replace(
@@ -59,7 +55,6 @@ public class PersonEducationController {
             @Valid @RequestBody PersonEducationRequest dto) throws PersonEducationNotFoundException, PersonNotFoundException {
         personEducationService.replace(id, personId, dto, authenticatedUserId);
         return ResponseEntity.ok().build();
-
     }
 
     @DeleteMapping(value = "/{id}")
@@ -71,6 +66,4 @@ public class PersonEducationController {
         personEducationService.deleteById(id);
         return ResponseEntity.ok("Person deleted.");
     }
-
-
 }

@@ -18,7 +18,6 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/prs/v1/gender-types")
 public class GenderTypeController {
-
     private final Mapper<GenderType, GenderTypeDto> mapper = new Mapper<>(GenderTypeService::toDto);
     private final GenderTypeService genderTypeService;
 
@@ -32,4 +31,3 @@ public class GenderTypeController {
         return ResponseEntity.ok(mapper.map(genderTypeService.findById(id)));
     }
 }
-

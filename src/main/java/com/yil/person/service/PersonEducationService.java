@@ -7,7 +7,6 @@ import com.yil.person.exception.PersonNotFoundException;
 import com.yil.person.model.PersonEducation;
 import com.yil.person.repository.PersonEducationRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -57,7 +56,5 @@ public class PersonEducationService {
 
     public PersonEducation findById(Long id) throws PersonEducationNotFoundException {
         return personEducationRepository.findById(id).orElseThrow(PersonEducationNotFoundException::new);
-
-
     }
 }

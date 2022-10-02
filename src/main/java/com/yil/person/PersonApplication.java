@@ -11,10 +11,8 @@ import org.springframework.context.annotation.ComponentScan;
 @OpenAPIDefinition(info = @Info(title = "Person Api", version = "1.0", description = "Yıldırım Information"))
 @SpringBootApplication
 public class PersonApplication {
-
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(PersonApplication.class, args);
         context.start();
     }
-
 }

@@ -12,10 +12,9 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class GenderTypeService {
-
     private final GenderTypeRepository genderTypeRepository;
-    //  private final GenderTypeDto genderTypeDto;
 
+    //  private final GenderTypeDto genderTypeDto;
     public static GenderTypeDto toDto(GenderType genderType) throws NullPointerException {
         if (genderType == null)
             throw new NullPointerException("Gender type is null");
@@ -31,7 +30,5 @@ public class GenderTypeService {
 
     public GenderType findById(Integer id) throws GenderNotFoundException {
         return genderTypeRepository.findById(id).orElseThrow(GenderNotFoundException::new);
-
-
     }
 }

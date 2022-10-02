@@ -1,6 +1,5 @@
 package com.yil.person.exception;
 
-
 import com.yil.person.base.ApiException;
 import com.yil.person.base.ErrorCode;
 import org.springframework.http.HttpStatus;

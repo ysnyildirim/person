@@ -11,25 +11,19 @@ import java.util.Date;
 
 @Component
 public class SetupDataLoader implements ApplicationListener<ContextStartedEvent> {
-
-
     @Autowired
     private GenderTypeRepository genderDao;
-
 
     @Override
     public void onApplicationEvent(ContextStartedEvent event) {
         System.out.println("Start Up Events");
         System.out.println(new Date(event.getTimestamp()));
         System.out.println("----------------------");
-
         initGenderTypes();
     }
-
 
     private void initGenderTypes() {
         genderDao.save(GenderType.builder().id(1).name("Erkek").build());
         genderDao.save(GenderType.builder().id(2).name("Kadın").build());
     }
-
 }

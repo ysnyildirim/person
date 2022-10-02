@@ -63,7 +63,6 @@ public class PersonService {
 
     public Person findById(Long id) throws PersonNotFoundException {
         return personRepository.findById(id).orElseThrow(PersonNotFoundException::new);
-
     }
 
     public Page<Person> findAll(Pageable pageable) {

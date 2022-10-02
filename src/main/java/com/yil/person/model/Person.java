@@ -10,7 +10,6 @@ import org.hibernate.annotations.ColumnDefault;
 import javax.persistence.*;
 import java.util.Date;
 
-
 @Entity
 @Data
 @Builder
@@ -48,5 +47,4 @@ public class Person implements IEntity {
     private Date createdTime;
     @Column(name = "CREATED_USER_ID")
     private Long createdUserId;
-
 }

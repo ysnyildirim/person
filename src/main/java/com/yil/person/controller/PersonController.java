@@ -23,7 +23,6 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping(value = "/api/prs/v1/persons")
 public class PersonController {
-
     private final PersonService personService;
     private final Mapper<Person, PersonDto> mapper = new Mapper<>(PersonService::toDto);
 
@@ -39,12 +38,10 @@ public class PersonController {
         return ResponseEntity.ok(mapper.map(personService.findAll(pageable)));
     }
 
-
     @GetMapping(value = "/{id}")
     public ResponseEntity<PersonDto> findById(@PathVariable Long id) throws PersonNotFoundException {
         return ResponseEntity.ok(mapper.map(personService.findById(id)));
     }
-
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -54,7 +51,6 @@ public class PersonController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Kişi eklendi");
     }
 
-
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity replace(@RequestHeader(value = ApiConstant.AUTHENTICATED_USER_ID) Long authenticatedUserId,
@@ -62,7 +58,6 @@ public class PersonController {
                                   @Valid @RequestBody CreatePersonDto dto) throws PersonNotFoundException, GenderNotFoundException {
         personService.replace(id, dto, authenticatedUserId);
         return ResponseEntity.ok().build();
-
     }
 
     @DeleteMapping(value = "/{id}")

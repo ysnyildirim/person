@@ -8,6 +8,4 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
 @ApiException(code = ErrorCode.GenderNotFound)
 public class GenderNotFoundException extends Exception {
-
-
 }

@@ -15,7 +15,6 @@ import java.util.Date;
                 @Index(name = "IDX_EDUCATION_PERSON_PERSON_ID", columnList = "PERSON_ID"),
                 @Index(name = "IDX_EDUCATION_PERSON_EDUCATION_ID", columnList = "EDUCATION_ID")
         }
-
 )
 @Builder
 @AllArgsConstructor
@@ -34,5 +33,4 @@ public class PersonEducation implements IEntity {
     @Temporal(value = TemporalType.DATE)
     @Column(name = "END_DATE")
     private Date finishDate;
-
 }

@@ -16,7 +16,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Table(schema = "PRS", name = "PERSON_JOB")
 public class PersonJob implements IEntity {
-
     @EmbeddedId
     private Pk id;
 
@@ -26,12 +25,9 @@ public class PersonJob implements IEntity {
     @AllArgsConstructor
     @Embeddable
     public static class Pk implements Serializable {
-
         @Column(name = "PERSON_ID", nullable = false)
         private Long personId;
         @Column(name = "JOB_ID", nullable = false)
         private Long jobId;
-
     }
-
 }
