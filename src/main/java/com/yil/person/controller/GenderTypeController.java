@@ -5,6 +5,7 @@ import com.yil.person.dto.GenderTypeDto;
 import com.yil.person.exception.GenderNotFoundException;
 import com.yil.person.model.GenderType;
 import com.yil.person.service.GenderTypeService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,11 +22,13 @@ public class GenderTypeController {
     private final Mapper<GenderType, GenderTypeDto> mapper = new Mapper<>(GenderTypeService::toDto);
     private final GenderTypeService genderTypeService;
 
+    @Operation(summary = "Tüm cinsiyet tiplerini getirir")
     @GetMapping
     public ResponseEntity<List<GenderTypeDto>> findAll() {
         return ResponseEntity.ok(mapper.map(genderTypeService.findAll()));
     }
 
+    @Operation(summary = "Id bazlı cinsiyet bilgilerini getirir")
     @GetMapping(value = "/{id}")
     public ResponseEntity<GenderTypeDto> findById(@PathVariable Integer id) throws GenderNotFoundException {
         return ResponseEntity.ok(mapper.map(genderTypeService.findById(id)));
