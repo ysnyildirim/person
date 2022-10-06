@@ -8,6 +8,7 @@ import com.yil.person.exception.PersonEducationNotFoundException;
 import com.yil.person.exception.PersonNotFoundException;
 import com.yil.person.model.PersonEducation;
 import com.yil.person.service.PersonEducationService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,12 +24,14 @@ public class PersonEducationController {
     private final PersonEducationService personEducationService;
     private final Mapper<PersonEducation, PersonEducationDto> mapper = new Mapper<>(PersonEducationService::toDto);
 
+    @Operation(summary = "Tüm kişi - eğitim bilgilerini getirir")
     @GetMapping
     public ResponseEntity<List<PersonEducationDto>> findAll(
             @RequestHeader(value = "personId") Long personId) {
         return ResponseEntity.ok(mapper.map(personEducationService.findAllByPersonId(personId)));
     }
 
+    @Operation(summary = "Kişinin id bazlı eğitim bilgilerini getirir")
     @GetMapping(value = "/{id}")
     public ResponseEntity<PersonEducationDto> findById(
             @RequestHeader(value = "personId") Long personId,
@@ -36,6 +39,7 @@ public class PersonEducationController {
         return ResponseEntity.ok(mapper.map(personEducationService.findById(id)));
     }
 
+    @Operation(summary = "Kişiye ait yeni bir eğitim bilgisi eklemek için kullanılır.")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<String> create(
@@ -46,6 +50,7 @@ public class PersonEducationController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Kişiye ait eğitim bilgisi eklendi");
     }
 
+    @Operation(summary = "Kişiye ait eğitim bilgisi güncellemek için kullanılır.")
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity replace(
@@ -57,6 +62,7 @@ public class PersonEducationController {
         return ResponseEntity.ok().build();
     }
 
+    @Operation(summary = "Kişiye ait eğitim bilgisi silmek için kullanılır.")
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> delete(

@@ -7,7 +7,9 @@ import com.yil.person.dto.PersonJobRequest;
 import com.yil.person.exception.PersonNotFoundException;
 import com.yil.person.model.PersonJob;
 import com.yil.person.service.PersonJobService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,11 +23,13 @@ public class PersonJobController {
     private final PersonJobService personJobService;
     private final Mapper<PersonJob, PersonJobDto> mapper = new Mapper<>(PersonJobService::toDto);
 
+    @Operation(summary = "Kişi id bazlı meslek bilgilerini getirir")
     @GetMapping
     public ResponseEntity<List<PersonJobDto>> findAllByPersonId(@PathVariable(value = "personId") Long personId) {
         return ResponseEntity.ok(mapper.map(personJobService.findAllByPersonId(personId)));
     }
 
+    @Operation(summary = "Kişi id bazlı yeni bir meslek bilgisi eklemek için kullanılır")
     @PostMapping
     public ResponseEntity save(@RequestHeader(value = ApiConstant.AUTHENTICATED_USER_ID) Long authenticatedUserId,
                                @PathVariable(value = "personId") Long personId,

@@ -10,6 +10,7 @@ import com.yil.person.exception.GenderNotFoundException;
 import com.yil.person.exception.PersonNotFoundException;
 import com.yil.person.model.Person;
 import com.yil.person.service.PersonService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +27,7 @@ public class PersonController {
     private final PersonService personService;
     private final Mapper<Person, PersonDto> mapper = new Mapper<>(PersonService::toDto);
 
+    @Operation(summary = "Kişiye ait tüm bilgileri getirir.")
     @GetMapping
     public ResponseEntity<PageDto<PersonDto>> findAll(
             @RequestParam(required = false, defaultValue = ApiConstant.PAGE) int page,
@@ -38,11 +40,13 @@ public class PersonController {
         return ResponseEntity.ok(mapper.map(personService.findAll(pageable)));
     }
 
+    @Operation(summary = "Id bazlı kişi bilgilerini getirir.")
     @GetMapping(value = "/{id}")
     public ResponseEntity<PersonDto> findById(@PathVariable Long id) throws PersonNotFoundException {
         return ResponseEntity.ok(mapper.map(personService.findById(id)));
     }
 
+    @Operation(summary = "Yeni bir kişi eklemek için kullanılır.")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<String> create(@RequestHeader(value = ApiConstant.AUTHENTICATED_USER_ID) Long authenticatedUserId,
@@ -51,6 +55,7 @@ public class PersonController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Kişi eklendi");
     }
 
+    @Operation(summary = "Id bazlı  kişi bilgisi güncellemek için kullanılır.")
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity replace(@RequestHeader(value = ApiConstant.AUTHENTICATED_USER_ID) Long authenticatedUserId,
@@ -60,6 +65,7 @@ public class PersonController {
         return ResponseEntity.ok().build();
     }
 
+    @Operation(summary = "Id bazlı  kişi bilgisi silmek için kullanılır.")
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<String> delete(@RequestHeader(value = ApiConstant.AUTHENTICATED_USER_ID) Long authenticatedPersonId,
