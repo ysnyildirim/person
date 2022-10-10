@@ -7,6 +7,7 @@ import com.yil.person.model.GenderType;
 import com.yil.person.service.GenderTypeService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ public class GenderTypeController {
     private final Mapper<GenderType, GenderTypeDto> mapper = new Mapper<>(GenderTypeService::toDto);
     private final GenderTypeService genderTypeService;
 
+    @Cacheable("gender-type")
     @Operation(summary = "Tüm cinsiyet tiplerini getirir")
     @GetMapping
     public ResponseEntity<List<GenderTypeDto>> findAll() {
